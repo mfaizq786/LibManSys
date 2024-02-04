@@ -1,0 +1,57 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+{% block title %}viewallbooks{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block 'adminbutton' %}
+ {% include 'LibMangSys/Library Management/adminbutton.html' %}
+{% endblock  %}
+
+{% block body %}
+
+<h1 class="text-center p-5">View All Books</h1>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert("{{msg}}");
+</script>
+{% endfor %}
+{% endif %}
+<div class="container">
+    <table class="table table-bordered">
+        <tr class="bg-danger text-light text-center">
+            <th>S.No</th>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Book No</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        {% if bookcount == 0 %}
+        <tr>
+            <th colspan="7">Books are not available in Library</th>
+        </tr>
+        {% endif %}
+        {% for var in bookdata %}
+        <tr class="text-center">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ var.bookname }}</td>
+            <td>{{ var.authorname }}</td>
+            <td><span class="bg-light px-2 rounded">{{ var.bookno }}<span></td>
+            <td>{{ var.category }}</td>
+            <td>{{ var.quantity }}</td>    
+            <td>
+                <form action="{% url 'delete-book' %}" method="get">
+                    <input type="hidden" name="id" value="{{var.id}}">
+                    <a href="{% url 'edit-book' var.id %}" class="btn btn-success m-2">Edit</a>
+                    <button type="submit" class="btn btn-danger m-2">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

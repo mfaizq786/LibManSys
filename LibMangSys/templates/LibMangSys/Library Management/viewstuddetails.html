@@ -1,0 +1,145 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+{% block title %}Students Details{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block 'adminbutton' %}
+ {% include 'LibMangSys/Library Management/adminbutton.html' %}
+{% endblock  %}
+
+{% block body %}
+
+<h1 class="text-center p-5">Students Detail</h1>
+<div class="container">
+    <table class="table table-bordered">
+        <tr class="bg-danger text-light text-center">
+            <th>S.No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Enrollment No</th>
+            <th>Branch</th>
+            <th>Profile</th>
+            <th>Action</th>
+        </tr>
+        {% if studentcount == 0 %}
+        <tr>
+            <th colspan="7">There is no student details present in the Library</th>
+        </tr>
+        {% endif %}
+        {% for var in Sdata %}
+        <tr class="text-center">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ var.fname }}</td>
+            <td>{{ var.lname }}</td>
+            <td><span class="bg-light px-2 rounded">{{ var.enrollno }}<span></td>
+            <td>{{ var.branch }}</td>
+            <td><a href="{{ var.image.url }}"><img src="{{ var.image.url }}" alt="{{var.fname}}" width="50px"
+                        height="50px" class="rounded" style="cursor:pointer"></a></td>
+            <td>
+                <form action="{% url 'delete-stud' %}" method="get">
+                    <input type="hidden" name="id" value="{{var.id}}">
+                    <a href="{% url 'edit-student' var.id %}" class="btn btn-success m-2">Edit</a>
+                    <button type="submit" class="btn btn-danger m-2">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+<!-- Edit student details modal -->
+<div class="modal fade" id="edit-stud-details" data-bs-backdrop="static" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-light">
+                <h5 class="modal-title" id="admin-menu-1">Edit Student Details</h5>
+                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {% load static %}
+            <div class="modal-body text-center" style="background-color: #efefef ;">
+                <img src="{% static 'LibMangSys/images/edit.jpg' %}" class="rounded-circle" alt="" height="200px"
+                    width="200px">
+                {% if messages %}
+                {% for msg in messages %}
+                <script>
+                    alert("{{msg}}");
+                </script>
+                {% endfor %}
+                {% endif %}
+                {% comment %} enctype="multipart/form-data" {% endcomment %}
+                <form action="{% url 'edit-student' 25 %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{Edata.id}}">
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">First Name: </label>
+                        <div class="col-sm-9">
+                            <input type="text" value="{{Edata.fname}}" name="firstname" class="form-control"
+                                id="inputPassword" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Last Name: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="lastname" class="form-control" id="inputPassword"
+                                placeholder="Enter Your Lastname" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Enroll No: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="EnrollNo" class="form-control" id="inputPassword"
+                                placeholder="Enter Your EnrollNo" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Branch: </label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="branch" aria-label="Default select example" required>
+                                <option selected disabled>Select Your Branch</option>
+                                <option value="Btech-CS">Btech-CS</option>
+                                <option value="Btech-ME">Btech-ME</option>
+                                <option value="Btech-CE">Btech-CE</option>
+                                <option value="Btech-EE">Btech-EE</option>
+                                <option value="Btech-IT">Btech-IT</option>
+                                <option value="BCA">BCA</option>
+                                <option value="BVoc">BVoc</option>
+                                <option value="BBA">BBA</option>
+                                <option value="MBA">MBA</option>
+                                <option value="MCA">MCA</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Upload Img: </label>
+                        <div class="col-sm-9">
+                            <input type="file" name="imgupload" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Username: </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="username" class="form-control"
+                                placeholder="example@123" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 my-2 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Password: </label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password" class="form-control" id="inputPassword"
+                                placeholder="make the pass unique" required />
+                        </div>
+                    </div>
+                    <a href="#">
+                        <h6 class="text-primary">If you already a member ?? >>> Login Now!!!</h6>
+                    </a>
+                    <button type="submit" class="btn btn-primary px-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,235 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+{% block css %}
+{% endblock %}
+
+{% block body %}
+{% if messages %}
+{% for msg in messages %}
+<script>
+	alert("{{msg}}");
+</script>
+{% endfor %}
+{% endif %}
+{% load static %}
+
+
+<!-- img slider start here -->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-indicators">
+		<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+			aria-current="true" aria-label="Slide 1"></button>
+		<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+			aria-label="Slide 2"></button>
+		<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+			aria-label="Slide 3"></button>
+	</div>
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img src="{% static 'LibMangSys/images/slide1.jpg' %}" class="d-block w-100 slideimg" alt="...">
+			<div class="carousel-caption d-none d-md-block">
+				<h1>Welcome to Library</h1>
+				<h4>The more that you read, the more things you will know.<br>The more that you learn, the more places
+					you’ll go.</h4>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<img src="{% static 'LibMangSys/images/slide5.jpg' %}" class="d-block w-100 slideimg" alt="...">
+			<div class="carousel-caption d-none d-md-block">
+				<h1>Welcome to Library</h1>
+				<h4>A great book should leave you with many experiences, and slightly exhausted at the end. You live
+					several lives while reading.</h4>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<img src="{% static 'LibMangSys/images/slide4.jpg' %}" class="d-block w-100 slideimg" alt="...">
+			<div class="carousel-caption d-none d-md-block">
+				<h1>Welcome to Library</h1>
+				<h4>If you don’t like to read, you haven’t found the right book.</h4>
+			</div>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+
+<!--     cards start here       -->
+<section class="main-body">
+	<div class="container d-flex my-5" style="width: fit-content;">
+		<div class="row">
+			<div class="col">
+				<a href="#" data-bs-toggle="modal" data-bs-target="#admin-modal">
+					<div class="card mx-5" style="width: 18rem; border-radius:50% ;">
+						<img src="{% static 'LibMangSys/images/admin.png' %}" class="card-img-top" alt="..."
+							style="border-radius:50% ;">
+					</div>
+				</a>
+			</div>
+			<div class="col">
+				<a href="#" data-bs-toggle="modal" data-bs-target="#student-modal">
+					<div class="card mx-5" style="width: 18rem; border-radius:50% ;">
+						<img src="{% static 'LibMangSys/images/student.jpg' %}" class="card-img-top" alt="..."
+							style="border-radius:50% ;">
+						<h1
+							style="margin-top: -59px; margin-left: 55px; font-family: 'Times New Roman', Times, serif; font-weight: bold; text-decoration:none; ">
+							STUDENT</h1>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Modal Admin login Form-->
+<div class="modal fade" id="admin-modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary text-light">
+				<h5 class="modal-title" id="exampleModalLabel">Admin Login</h5>
+				<button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/admin2.png' %}" alt="" height="200px"><br>
+				<form action="{% url 'index' %}" method="POST">
+					{% csrf_token %}
+					<div class="mb-3">
+						<input type="text" name="user" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="Username" required />
+					</div>
+					<div class="mb-3">
+						<input type="password" name="pass" class="form-control" id="exampleInputPassword1"
+							placeholder="Password" required />
+					</div>
+					<button type="submit" class="btn btn-primary">Login</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal student login Form-->
+<div class="modal fade" id="student-modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary text-light">
+				<h5 class="modal-title" id="exampleModalLabel">Student Login</h5>
+				<button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/student2.png' %}" alt="" height="200px">
+				<form action="{% url 'stud-login' %}" method="POST">
+					{% csrf_token %}
+					<div class="mb-3 my-2">
+						<input type="text" name="username" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="Username">
+					</div>
+					<div class="mb-3">
+						<input type="password" name="password" class="form-control" id="exampleInputPassword1"
+							placeholder="Password">
+					</div>
+					<a href="#" data-bs-toggle="modal" data-bs-target="#stud-reg-form">
+						<h6 class="text-primary">If you not a
+							member ?? >>> Register now!!!</h6>
+					</a>
+
+
+					<button type="submit" class="btn btn-primary px-4">Login</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- student Registration -->
+{% load static %}
+<div class="modal fade" id="stud-reg-form" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary text-light">
+				<h5 class="modal-title" id="admin-menu-1">Student Registration</h5>
+				<button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/student3.jpg' %}" class="rounded-circle" alt="" height="200px"
+					width="200px">
+				{% comment %} enctype="multipart/form-data" {% endcomment %}
+				<form action="{% url 'stud-registration' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">First Name: </label>
+						<div class="col-sm-9">
+							<input type="text" name="firstname" class="form-control" id="inputPassword"
+								placeholder="Enter Your Firstname" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Last Name: </label>
+						<div class="col-sm-9">
+							<input type="text" name="lastname" class="form-control" id="inputPassword"
+								placeholder="Enter Your Lastname" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Enroll No: </label>
+						<div class="col-sm-9">
+							<input type="text" name="EnrollNo" class="form-control" id="inputPassword"
+								placeholder="Enter Your EnrollNo" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Branch: </label>
+						<div class="col-sm-9">
+							<select class="form-select" name="branch" aria-label="Default select example" required>
+								<option selected disabled>Select Your Branch</option>
+								<option value="Btech-CS">Btech-CS</option>
+								<option value="Btech-ME">Btech-ME</option>
+								<option value="Btech-CE">Btech-CE</option>
+								<option value="Btech-EE">Btech-EE</option>
+								<option value="Btech-IT">Btech-IT</option>
+								<option value="BCA">BCA</option>
+								<option value="BVoc">BVoc</option>
+								<option value="BBA">BBA</option>
+								<option value="MBA">MBA</option>
+								<option value="MCA">MCA</option>
+
+							</select>
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Upload Img: </label>
+						<div class="col-sm-9">
+							<input type="file" name="imgupload" class="form-control" id="inputPassword" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Username: </label>
+						<div class="col-sm-9">
+							<input type="text" name="username" class="form-control" id="inputPassword"
+								placeholder="example@123" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Password: </label>
+						<div class="col-sm-9">
+							<input type="password" name="password" class="form-control" id="inputPassword"
+								placeholder="make the pass unique" required />
+						</div>
+					</div>
+					<a href="{% url 'index' %}">
+						<h6 class="text-primary">If you already a member ?? >>> Login Now!!!</h6>
+					</a>
+					<button type="submit" class="btn btn-primary px-4">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+
+{% block css %}
+.img-size img{
+height:250px;
+width:100%;
+}
+{% block 'title' %}
+editbook
+{% endblock %}
+{% endblock %}
+{% block 'adminbutton' %}
+ {% include 'LibMangSys/Library Management/adminbutton.html' %}
+{% endblock  %}
+
+{% block body %}
+
+<div class="container text-center my-5 rounded shadow" style="background-color: #efefef ; width:fit-content">
+
+    <h3 class="modal-title bg-primary text-light py-2" id="admin-menu-1">Edit Book Details</h3>
+
+    {% load static %}
+    <img src="{% static 'LibMangSys/images/edit.jpg' %}" class="rounded-circle my-2" alt="" height="200px"
+        width="200px">
+    {% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert("{{msg}}");
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% comment %} enctype="multipart/form-data" {% endcomment %}
+    <form action="{% url 'edit-book' bookdata.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Book Name: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ bookdata.bookname }}" name="bookname" class="form-control" id="inputPassword" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Author Name: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ bookdata.authorname }}" name="author" class="form-control" id="inputPassword" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Book No: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ bookdata.bookno }}" name="bookno" class="form-control" id="inputPassword" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Category: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ bookdata.category }}" name="category" class="form-control" id="inputPassword" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Quantity: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{  bookdata.quantity }}" name="quantity" class="form-control" id="inputPassword" required />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary px-4 my-2">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

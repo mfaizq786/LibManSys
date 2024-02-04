@@ -1,0 +1,95 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+
+{% block css %}
+.img-size img{
+height:250px;
+width:100%;
+}
+{% endblock %}
+{% block 'adminbutton' %}
+ {% include 'LibMangSys/Library Management/adminbutton.html' %}
+{% endblock  %}
+
+{% block body %}
+
+<div class="container text-center my-5 rounded shadow" style="background-color: #efefef ; width:fit-content">
+
+    <h3 class="modal-title bg-primary text-light py-2" id="admin-menu-1">Edit Student Details</h3>
+
+    {% load static %}
+    <img src="{% static 'LibMangSys/images/student3.jpg' %}" class="rounded-circle my-2" alt="" height="200px" width="200px">
+    {% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert("{{msg}}");
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% comment %} enctype="multipart/form-data" {% endcomment %}
+    <form action="{% url 'edit-student' Edata.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">First Name: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ Edata.fname }}" name="firstname" class="form-control" id="inputPassword"
+                    placeholder="Enter Your Firstname" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Last Name: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ Edata.lname }}" name="lastname" class="form-control" id="inputPassword"
+                    placeholder="Enter Your Lastname" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Enroll No: </label>
+            <div class="col-sm-9">
+                <input type="text"  value="{{ Edata.enrollno}}" name="EnrollNo" class="form-control" id="inputPassword"
+                    placeholder="Enter Your EnrollNo" required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Branch: </label>
+            <div class="col-sm-9">
+                <select class="form-select" name="branch" aria-label="Default select example" required>
+                    <option selected value="{{ Edata.branch }}">{{ Edata.branch }}</option>
+                    <option value="Btech-CS">Btech-CS</option>
+                    <option value="Btech-ME">Btech-ME</option>
+                    <option value="Btech-CE">Btech-CE</option>
+                    <option value="Btech-EE">Btech-EE</option>
+                    <option value="Btech-IT">Btech-IT</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BVoc">BVoc</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                    <option value="MCA">MCA</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Upload Img: </label>
+            <div class="col-sm-9">
+                <input type="file" value="{{ Edata.image.url }}" name="imgupload" class="form-control" id="inputPassword"/>
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Username: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ Edata.username }}" name="username" class="form-control" id="inputPassword" placeholder="example@123"
+                    required />
+            </div>
+        </div>
+        <div class="mb-3 my-2 row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Password: </label>
+            <div class="col-sm-9">
+                <input type="text" value="{{ Edata.password }}" name="password" class="form-control" id="inputPassword"
+                    placeholder="make the pass unique" required/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary px-4 my-2">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

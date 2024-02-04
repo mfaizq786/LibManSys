@@ -1,0 +1,392 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+{% block css %}
+.img-size img{
+height:250px;
+width:100%;
+}
+{% endblock %}
+
+{% block 'adminbutton' %}
+ {% include 'LibMangSys/Library Management/adminbutton.html' %}
+{% endblock  %} 
+
+{% block body %}
+{% if messages %}
+{% for msg in messages %}
+<script>
+	alert("{{msg}}");
+</script>
+{% endfor %}
+{% endif %}
+{% load static %}
+<h1 class="text-center p-5">Administrator Menu</h1>
+
+<!-- Cards start here -->
+<div class="container my-3 " style="border: 3px groove red; width: fit-content;">
+	<div class="row my-5 px-5 d-flex">
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#admin-menu-1">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/newstudent.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="#" class="btn btn-outline-primary" data-bs-toggle="modal"
+						data-bs-target="#admin-menu-1">Register Student</a>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-4 col-xs-12 px-5">
+			<a href="{% url 'stud-detail' %}">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/viewstudents.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="{% url 'stud-detail' %}" class="btn btn-outline-primary">View Students Details </a>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#delete-student">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/deletestud.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#delete-student">Delete Student</a>
+				</div>
+			</a>
+		</div>
+
+
+	</div>
+
+	<div class="row my-5 px-5">
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#admin-add-book">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/addbook.png' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="#" data-bs-toggle="modal" data-bs-target="#admin-add-book" class="btn btn-outline-primary">Add Book</a>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-4 col-xs-12 px-5">
+			<a href="{% url 'view-all-books' %}">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/viewallbooks2.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="{% url 'view-all-books' %}" class="btn btn-outline-primary">View All Books</a>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#delete-book">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/deletebook.png' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="#" data-bs-toggle="modal" data-bs-target="#delete-book" class="btn btn-outline-primary">Delete Book</a>
+				</div>
+			</a>
+		</div>
+
+	</div>
+
+	<div class="row my-5 px-5">
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#admin-issue-book">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/issuebook.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="#" class="btn btn-outline-primary mx-5" data-bs-toggle="modal" data-bs-target="#admin-issue-book">Issue Book</a>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#admin-menu-1">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/viewissuebooks.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="{% url 'issued-book' %}" class="btn btn-outline-primary mx-5">View Issue Books</a>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-4 col-xs-12 px-5">
+			<a href="#" data-bs-toggle="modal" data-bs-target="#admin-return-book">
+				<div class="card img-size" style="width: 18rem;">
+					<img src="{% static 'LibMangSys/images/returnbook.jpg' %}" class="card-img-top" alt="...">
+				</div>
+				<div class="card-body bg-light rounded">
+					<a href="#" data-bs-toggle="modal" data-bs-target="#admin-return-book" class="btn btn-outline-primary mx-5">Return Book</a>
+				</div>
+			</a>
+		</div>
+
+
+	</div>
+</div>
+
+<!--------------Admin panel Modals Here  -------------->
+{% include 'LibMangSys/Library Management/studregform.html' %}
+
+<!-- Delete Student -->
+<div class="modal fade" id="delete-student" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Delete Student</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'delete-stud' %}" method="POST">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-5 col-form-label">Enter Enrollment No: </label>
+						<div class="col-sm-7">
+							<input type="text" name="enroll" class="form-control" id="inputPassword"
+								placeholder="Enrollment No" required />
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Delete</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Add book modal -->
+<div class="modal fade" id="admin-add-book" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary text-light">
+				<h5 class="modal-title" id="admin-menu-1">Add Book</h5>
+				<button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/addbook.png' %}" class="rounded-circle" alt="" height="200px"
+					width="200px">
+				{% comment %} enctype="multipart/form-data" {% endcomment %}
+				<form action="{% url 'add-book' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Book Name: </label>
+						<div class="col-sm-9">
+							<input type="text" name="bookname" class="form-control" id="inputPassword"
+								placeholder="Enter Book Name" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Author: </label>
+						<div class="col-sm-9">
+							<input type="text" name="author" class="form-control" id="inputPassword"
+								placeholder="Enter Book's Author Name" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Book No: </label>
+						<div class="col-sm-9">
+							<input type="text" name="bookno" class="form-control" id="inputPassword"
+								placeholder="Enter Book No" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Catogary: </label>
+						<div class="col-sm-9">
+							<input type="text" name="category" class="form-control" id="inputPassword"
+								placeholder="Enter Book Catagory" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Quantity </label>
+						<div class="col-sm-9">
+							<input type="number" name="quantity" placeholder="Enter Quantity" class="form-control" id="inputPassword" required />
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary px-4">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Delete Book -->
+<div class="modal fade" id="delete-book" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Delete Book</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'delete-book' %}" method="POST">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-5 col-form-label">Enter Book No: </label>
+						<div class="col-sm-7">
+							<input type="text" name="bookno" class="form-control" id="inputPassword"
+								placeholder="Book No" required />
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Delete</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- issue book modal -->
+<div class="modal fade" id="admin-issue-book" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary text-light">
+				<h5 class="modal-title" id="admin-menu-1">Issue Book</h5>
+				<button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/issuebook.jpg' %}" class="rounded-circle" alt="" height="200px"
+					width="200px">
+				{% comment %} enctype="multipart/form-data" {% endcomment %}
+				<form action="{% url 'issue-book' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Enroll No: </label>
+						<div class="col-sm-9">
+							{% comment %} <input type="text" name="enrollno" class="form-control" id="inputPassword"
+								placeholder="Enter Enrollment No" required /> {% endcomment %}
+							<select class="form-select" name="enrollno" aria-label="Default select example" required>
+								{% for var in stud %}
+								<option selected value="{{var.enrollno}}">{{var.enrollno}} [{{var.fname}} {{ var.lname}}]</option>
+                                {% endfor %}
+							</select>	
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Book Name: </label>
+						<div class="col-sm-9">
+							{% comment %} <input type="text" name="bookname" class="form-control" id="inputPassword"
+								placeholder="Enter Book Name" required /> {% endcomment %}
+							<select class="form-select" name="bookname" aria-label="Default select example" required>
+								{% for var in books %}
+								<option selected value="{{var.bookname}}">{{var.bookname}} [{{var.authorname}}]</option>
+                                {% endfor %}
+							</select>		
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Book No: </label>
+						<div class="col-sm-9">
+							{% comment %} <input type="text" name="bookno" class="form-control" id="inputPassword"
+								placeholder="Enter Book No" required /> {% endcomment %}
+							<select class="form-select" name="bookno" aria-label="Default select example" required>
+								{% for var in books %}
+								<option selected value="{{var.bookno}}">{{var.bookno}}</option>
+                                {% endfor %}
+							</select>		
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary px-4">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Return Book -->
+<div class="modal fade" id="admin-return-book" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Return Book</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'return-book' %}" method="POST">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-5 col-form-label">Enter Enrollment No: </label>
+						<div class="col-sm-7">
+							<input type="text" name="enroll" class="form-control" id="inputPassword"
+								placeholder="Enrollment No" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-5 col-form-label">Enter Book No: </label>
+						<div class="col-sm-7">
+							<input type="text" name="bookno" class="form-control" id="inputPassword"
+								placeholder="Book No" required />
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Return</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>Administrator</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'LibMangSys/css/style.css' %}">
+</head>
+<body>
+	<div id="admin-menu">
+		<h2>Administrator Menu</h2>
+<ol type="1">
+	<a href="create-student-record.html"><li>Create Student Record</li></a>
+	<a href="#"><li>Display All student Record</li></a>
+	<a href="#"><li>Display Specific Student Record</li></a>
+	<a href="#"><li>Modify Student Record</li></a>
+	<a href="#"><li>Delete Student Record</li></a>
+	<a href="#"><li>Create Book</li></a>
+	<a href="#"><li>Display All Books</li></a>
+	<a href="#"><li>Display Specific Book</li></a>
+	<a href="#"><li>Modify Book</li></a>
+	<a href="#"><li>Delete Book</li></a>
+	<a href="{% url 'menu' %}"><li>Back To Main Menu</li></a>		
+</ol>
+</div>
+
+</body>
+</html>-->

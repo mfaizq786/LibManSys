@@ -1,0 +1,70 @@
+{% extends 'LibMangSys/Library Management/basic.html' %}
+{% block title %}Student Panel{% endblock %}
+{% block css %}
+  .pname:hover{
+      color:lightgreen;
+  }
+{% endblock %}
+
+{% block profileimg %}
+<img src="{{data.image.url}}" height="40px" width="40px" class="rounded-circle" style="cursor:pointer">                 
+{% endblock profileimg %}
+{% block 'adminbutton' %}
+	<h5 class="d-inline px-4 pname" style="cursor:pointer;">{{data.fname}} {{data.lname}}</h5>
+{% endblock  %} 
+{% block body %}
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert("{{msg}}");
+</script>
+{% endfor %}
+{% endif %}
+<h1 class="text-center p-5">View Issued Books</h1>
+<div class="container">
+    <table class="table table-bordered">
+        <tr class="bg-danger text-light text-center">
+            <th>S.No</th>
+            <th>Student</th>
+            <th>Enrollment</th>
+            <th>Book</th>
+            <th>Author</th>
+            <th>Book No</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+            <th>Action</th>
+        </tr>
+        {% if issuecount == 0 %}
+        <tr>
+            <th colspan="9">No books have issued yet</th>
+        </tr>
+        {% endif %}
+       
+        {% for var in issuebook %}
+        <tr class="text-center">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ var.studid.fname }} {{ var.studid.lname }}</td>
+            <td>{{ var.enrollmentno }}</td>
+            <td>{{ var.bookid.bookname }}</td>
+            <td>{{ var.bookid.authorname }}</td>
+            <td>{{ var.bookno }}</td>   
+            <td>{{ var.issuedate|date:'D d N Y' }}</td>  
+            <td>{{ var.returndate|date:'D d N Y' }}</td>  
+            <td>
+                <form action="{% url 'stud-panel' %}" method="POST">
+                     {% csrf_token %}
+                    <input type="hidden" name="id" value="{{var.id}}">
+                    <input type="hidden" name="bookno" value="{{var.bookno}}">
+                    <button type='submit' data-bs-toggle="modal" data-bs-target="#fine-modal" class="btn btn-danger m-2">Fine</button>
+    
+                </form>
+            </td>
+        </tr>
+        {% include 'LibMangSys\Library Management\finemodal.html' %}
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

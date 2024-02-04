@@ -1,0 +1,85 @@
+<!-- student Registration -->
+{% load static %}
+<div class="modal fade" id="admin-menu-1" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary text-light">
+				<h5 class="modal-title" id="admin-menu-1">Student Registration</h5>
+				<button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/student3.jpg' %}" class="rounded-circle" alt="" height="200px"
+					width="200px">
+				{% comment %} enctype="multipart/form-data" {% endcomment %}
+				<form action="{% url 'administrator' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">First Name: </label>
+						<div class="col-sm-9">
+							<input type="text" name="firstname" class="form-control" id="inputPassword"
+								placeholder="Enter Your Firstname" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Last Name: </label>
+						<div class="col-sm-9">
+							<input type="text" name="lastname" class="form-control" id="inputPassword"
+								placeholder="Enter Your Lastname" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Enroll No: </label>
+						<div class="col-sm-9">
+							<input type="text" name="EnrollNo" class="form-control" id="inputPassword"
+								placeholder="Enter Your EnrollNo" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Branch: </label>
+						<div class="col-sm-9">
+							<select class="form-select" name="branch" aria-label="Default select example" required>
+								<option selected disabled>Select Your Branch</option>
+								<option value="Btech-CS">Btech-CS</option>
+								<option value="Btech-ME">Btech-ME</option>
+								<option value="Btech-CE">Btech-CE</option>
+								<option value="Btech-EE">Btech-EE</option>
+								<option value="Btech-IT">Btech-IT</option>
+								<option value="BCA">BCA</option>
+								<option value="BVoc">BVoc</option>
+								<option value="BBA">BBA</option>
+								<option value="MBA">MBA</option>
+								<option value="MCA">MCA</option>
+
+							</select>
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Upload Img: </label>
+						<div class="col-sm-9">
+							<input type="file" name="imgupload" class="form-control" id="inputPassword" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Username: </label>
+						<div class="col-sm-9">
+							<input type="text" name="username" class="form-control" id="inputPassword"
+								placeholder="example@123" required />
+						</div>
+					</div>
+					<div class="mb-3 my-2 row">
+						<label for="inputPassword" class="col-sm-3 col-form-label">Password: </label>
+						<div class="col-sm-9">
+							<input type="password" name="password" class="form-control" id="inputPassword"
+								placeholder="make the pass unique" required />
+						</div>
+					</div>
+					<a href="#">
+						<h6 class="text-primary">If you already a member ?? >>> Login Now!!!</h6>
+					</a>
+					<button type="submit" class="btn btn-primary px-4">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

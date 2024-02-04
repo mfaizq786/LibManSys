@@ -1,0 +1,19 @@
+<!-- fine modal -->
+{% load static %}
+<div class="modal fade" id="fine-modal" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Student Fine</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-center" style="background-color: #efefef ;">
+				<img src="{% static 'LibMangSys/images/danger.png' %}" class="rounded-circle" alt="" height="200px"
+				width="200px">
+                <h3>You have {{var.latedays}} Days Late<br>
+                Your Fine is : {{var.fine}}</h3>
+			</div>
+		</div>
+	</div>
+</div>
